@@ -50,6 +50,10 @@ export default class LoanService {
     const loan: Loan = await this.LoanRepo.getLoanById(id);
     loan.Status = LoanStatus.RETURNED;
     this.LoanRepo.updateLoan(loan);
+
+    let book: Book = await this.BookRepo.findBookById(loan.bookId);
+    book.isAvailable = true;
+    this.BookRepo.updateBook(book);
     
     return `Loan Id: ${loan.id} book is returned.`;
   }
