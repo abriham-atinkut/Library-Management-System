@@ -24,3 +24,8 @@ export default class BookService {
     return await this.bookRepo.loadData();
   }
 }
+
+// let bookRepo = new BookRepository();
+// let book = new BookService(bookRepo);
+// const isExist = await book.bookExist(2);
+// console.log(isExist);
