@@ -41,7 +41,33 @@ export default class LoanRepository {
   }
   async loanExist(id: number) {
     return await this.getLoan().then((data) =>
-      data.some((loan: any) => loan.id === id),
+      data.some((loan: Loan) => loan.id === id),
     );
+  }
+
+  async updateLoan(loan: Loan) {
+    const collection: Loan[] = await this.getLoan().then((data) =>
+      data.filter((l: Loan) => l.id !== loan.id),
+    );
+    collection.push(loan);
+    const filePath = path.join(__dirname, "../data/loans.json");
+
+    try {
+      const jsonFile = JSON.stringify(collection, null, 2);
+      await writeFile(filePath, jsonFile, "utf-8");
+      return "Loan is updated Successfully";
+    } catch (err) {
+      console.error("Something want wrong when updating loan:", err);
+    }
+  }
+
+  async getActiveLoans(): Promise<Loan[] | string> {
+    const loans = await this.getLoan().then((data: Loan[]) =>
+      data.filter((l) => l.Status === "ACTIVE"),
+    );
+    if (!loans.length) {
+      return "There is no active loan.";
+    }
+    return loans;
   }
 }
