@@ -8,7 +8,7 @@ const __dirname = path.dirname(__filename);
 
 export default class LoanRepository {
   async getLoan() {
-    const filePath = path.join(__dirname, "../data/books.json");
+    const filePath = path.join(__dirname, "../data/loans.json");
     try {
       const contents = await readFile(filePath, {
         encoding: "utf-8",
@@ -23,7 +23,7 @@ export default class LoanRepository {
   async addLoan(loan: Loan) {
     const list = [{ ...loan }];
     await this.getLoan().then((data) => list.unshift(...data));
-    const filePath = path.join(__dirname, "../data/books.json");
+    const filePath = path.join(__dirname, "../data/loans.json");
     try {
       const jsonFile = JSON.stringify(list, null, 2);
       await writeFile(filePath, jsonFile, "utf-8");

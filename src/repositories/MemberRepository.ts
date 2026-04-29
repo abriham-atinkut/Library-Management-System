@@ -8,7 +8,7 @@ const __dirname = path.dirname(__filename);
 
 export default class MemberRepository {
   async getMembers() {
-    const filePath = path.join(__dirname, "../data/books.json");
+    const filePath = path.join(__dirname, "../data/members.json");
     try {
       const contents = await readFile(filePath, {
         encoding: "utf-8",
@@ -22,8 +22,8 @@ export default class MemberRepository {
 
   async addMember(member: Member) {
     const list = [{ ...member }];
-    await this.getMembers().then((data) => list.unshift(...data));
-    const filePath = path.join(__dirname, "../data/books.json");
+    await this.getMembers().then((data) => list.push(...data));
+    const filePath = path.join(__dirname, "../data/members.json");
     try {
       const jsonData = JSON.stringify(list, null, 2);
       await writeFile(filePath, jsonData, "utf-8");
