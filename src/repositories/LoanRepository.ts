@@ -1,10 +1,16 @@
 import { readFile, writeFile } from "node:fs/promises";
 import type { Loan } from "../models/Loan.js";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 export default class LoanRepository {
   async getLoan() {
+    const filePath = path.join(__dirname, "../data/books.json");
     try {
-      const contents = await readFile("../data/loans.json", {
+      const contents = await readFile(filePath, {
         encoding: "utf-8",
       });
       const data = JSON.parse(contents);
@@ -17,9 +23,10 @@ export default class LoanRepository {
   async addLoan(loan: Loan) {
     const list = [{ ...loan }];
     await this.getLoan().then((data) => list.unshift(...data));
+    const filePath = path.join(__dirname, "../data/books.json");
     try {
       const jsonFile = JSON.stringify(list, null, 2);
-      await writeFile("../data/loans.json", jsonFile, "utf-8");
+      await writeFile(filePath, jsonFile, "utf-8");
       return "New loan is added!";
     } catch (err) {
       console.error("Something want wrong when adding Loan!", err);

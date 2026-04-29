@@ -1,10 +1,16 @@
 import { readFile, writeFile } from "node:fs/promises";
 import type { Book } from "../models/Book.js";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 export default class BookRepository {
   async loadData() {
+    const filePath = path.join(__dirname, "../data/books.json");
     try {
-      const contents = await readFile("../data/books.json", {
+      const contents = await readFile(filePath, {
         encoding: "utf8",
       });
       const data = JSON.parse(contents);
@@ -17,18 +23,15 @@ export default class BookRepository {
   async addBook(book: Book) {
     const collection = [{ ...book }];
     await this.loadData().then((data) => collection.push(...data));
+    const filePath = path.join(__dirname, "../data/books.json");
 
     try {
       const jsonData = JSON.stringify(collection);
-      await writeFile("../data/books.json", jsonData, "utf-8");
+      await writeFile(filePath, jsonData, "utf-8");
       return "File is wrtten Successfully";
     } catch (err) {
       console.error("Error writing file: ", err);
     }
-  }
-
-  getAllBooks() {
-    return this.loadData().then((data) => data);
   }
 
   findBookById(id: number) {
