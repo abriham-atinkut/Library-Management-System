@@ -16,7 +16,8 @@ export default class LoanService {
 
   async borrowBook(bookId: number, memberId: number) {
     const isBookExist: Book = await this.BookRepo.bookExistById(bookId);
-    const isMemberEixst: Member = await this.MemberRepo.memberExistById(memberId);
+    const isMemberEixst: Member =
+      await this.MemberRepo.memberExistById(memberId);
 
     if (!(isMemberEixst && isBookExist)) return "Member or Book doesn't exist!";
 
@@ -40,5 +41,20 @@ export default class LoanService {
     this.BookRepo.updateBook(book);
 
     return "Done, creating loan!";
+  }
+
+  async returnBook(id: number) {
+    const isLoanExist: boolean = await this.LoanRepo.loanExist(id);
+    if (!isLoanExist) return "Loan doesn't exist!";
+
+    const loan: Loan = await this.LoanRepo.getLoanById(id);
+    loan.Status = LoanStatus.RETURNED;
+    this.LoanRepo.updateLoan(loan);
+    
+    return `Loan Id: ${loan.id} book is returned.`;
+  }
+
+  async activeLoans() {
+    return await this.LoanRepo.getActiveLoans();
   }
 }
