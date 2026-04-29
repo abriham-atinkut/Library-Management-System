@@ -21,7 +21,7 @@ export default class BookRepository {
   }
 
   async addBook(book: Book) {
-    const collection = [{ ...book }];
+    const collection = [book];
     await this.loadData().then((data) => collection.push(...data));
     const filePath = path.join(__dirname, "../data/books.json");
 
@@ -38,6 +38,17 @@ export default class BookRepository {
     const bookById = this.loadData().then((data) =>
       data.find((book: any) => book.id === id),
     );
+    if (!bookById) {
+      throw new Error("Book not found!");
+    }
     return bookById;
   }
+
+  async bookExistById(id: number) {
+    return await this.loadData().then((data) =>
+      data.some((book: any) => (book.id = id)),
+    );
+  }
 }
+
+

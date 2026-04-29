@@ -39,4 +39,9 @@ export default class MemberRepository {
     );
     return memberById;
   }
+  async memberExistById(id: number) {
+    return  await this.getMembers().then((data) =>
+      data.some((member: any) => member.id === id),
+    );
+  }
 }

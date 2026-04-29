@@ -39,4 +39,9 @@ export default class LoanRepository {
     });
     return loanById;
   }
+  async loanExist(id: number) {
+    return await this.getLoan().then((data) =>
+      data.some((loan: any) => loan.id === id),
+    );
+  }
 }
