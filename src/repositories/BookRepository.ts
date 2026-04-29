@@ -26,7 +26,7 @@ export default class BookRepository {
     const filePath = path.join(__dirname, "../data/books.json");
 
     try {
-      const jsonData = JSON.stringify(collection);
+      const jsonData = JSON.stringify(collection, null, 2);
       await writeFile(filePath, jsonData, "utf-8");
       return "File is wrtten Successfully";
     } catch (err) {
@@ -49,6 +49,20 @@ export default class BookRepository {
       data.some((book: any) => (book.id = id)),
     );
   }
+
+  async updateBook(book: Book) {
+    const collection: Book[] = await this.loadData().then((data) =>
+      data.filter((b: Book) => b.id !== book.id),
+    );
+    collection.push(book);
+    const filePath = path.join(__dirname, "../data/books.json");
+
+    try {
+      const jsonFile = JSON.stringify(collection, null, 2);
+      await writeFile(filePath, jsonFile, "utf-8");
+      return "File is updated Successfully";
+    } catch (err) {
+      console.error("Something want wrong when updating:", err);
+    }
+  }
 }
-
-
