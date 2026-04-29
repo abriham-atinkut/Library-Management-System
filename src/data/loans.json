@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "bookId": 100,
+    "memberId": 51,
+    "borrowedAt": "4/27/2026",
+    "dueDate": "4/30/2026",
+    "returnedAt": "",
+    "status": "ACTIVE"
+  },
+  {
+    "id": 2,
+    "bookId": 101,
+    "memberId": 52,
+    "borrowedAt": "4/10/2026",
+    "dueDate": "4/27/2026",
+    "returnedAt": "4/26/2026",
+    "status": "RETURNED"
+  }
+]

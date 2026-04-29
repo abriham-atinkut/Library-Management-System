@@ -1,0 +1,29 @@
+[
+  {
+    "id": 1,
+    "author": "Andrew Hunt & Dave Thomas",
+    "title": "Pragmatic Programmer",
+    "isbn": "abc-123",
+    "catagory": "Programming",
+    "isAvailable": true,
+    "createAt": "4/22/2026"
+  },
+  {
+    "id": 2,
+    "author": "Cormen, Leiserson, Rivest, and Stein",
+    "title": "Introduction to Algorithms",
+    "isbn": "efg-456",
+    "catagory": "Algorithms Programming",
+    "isAvailable": true,
+    "createAt": "4/19/2026"
+  },
+  {
+    "id": 3,
+    "author": "James Clear",
+    "title": "Atomic Habits",
+    "isbn": "hij-456",
+    "catagory": "Habits",
+    "isAvailable": true,
+    "createAt": "4/20/2026"
+  }
+]
