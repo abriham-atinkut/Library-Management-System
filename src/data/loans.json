@@ -6,7 +6,7 @@
     "borrowedAt": "4/27/2026",
     "dueDate": "4/30/2026",
     "returnedAt": "",
-    "status": "ACTIVE"
+    "Status": "ACTIVE"
   },
   {
     "id": 2,
@@ -15,6 +15,6 @@
     "borrowedAt": "4/10/2026",
     "dueDate": "4/27/2026",
     "returnedAt": "4/26/2026",
-    "status": "RETURNED"
+    "Status": "RETURNED"
   }
 ]

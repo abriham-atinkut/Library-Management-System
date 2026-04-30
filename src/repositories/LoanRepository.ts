@@ -33,10 +33,10 @@ export default class LoanRepository {
     }
   }
 
-  getLoanById(id: number) {
-    const loanById = this.getLoan().then((data) => {
-      return data.find((loan: any) => (loan.id = id));
-    });
+  async getLoanById(id: number) {
+    const loanById = await this.getLoan().then((data) =>
+      data.find((loan: Loan) => (loan.id === id)),
+    );
     return loanById;
   }
   async loanExist(id: number) {
