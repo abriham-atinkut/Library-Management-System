@@ -13,16 +13,17 @@ export default class BookRepository {
       const contents = await readFile(filePath, {
         encoding: "utf8",
       });
-      const data = JSON.parse(contents);
-      return data;
+      return JSON.parse(contents);
     } catch (error) {
       console.error(error);
     }
   }
 
   async addBook(book: Book) {
-    const collection = [book];
-    await this.loadData().then((data) => collection.push(...data));
+    const collection: Book[] = [book];
+    await this.loadData().then((data) =>
+      data !== undefined ? collection.push(...data) : "",
+    );
     const filePath = path.join(__dirname, "../data/books.json");
 
     try {
@@ -36,23 +37,23 @@ export default class BookRepository {
 
   findBookById(id: number) {
     const bookById = this.loadData().then((data) =>
-      data.find((book: any) => book.id === id),
+      data !== undefined ? data.find((book: Book) => book.id === id) : {},
     );
-    if (!bookById) {
+    if (Object.keys(bookById).length === 0 || undefined) {
       throw new Error("Book not found!");
     }
     return bookById;
   }
 
-  async bookExistById(id: number) {
+  async bookExistById(id: number): Promise<boolean> {
     return await this.loadData().then((data) =>
-      data.some((book: any) => (book.id = id)),
+      data !== undefined ? data.some((book: Book) => book.id === id) : false,
     );
   }
 
   async updateBook(book: Book) {
     const collection: Book[] = await this.loadData().then((data) =>
-      data.filter((b: Book) => b.id !== book.id),
+      data !== undefined ? data.filter((b: Book) => b.id !== book.id) : [],
     );
     collection.push(book);
     const filePath = path.join(__dirname, "../data/books.json");
