@@ -15,14 +15,14 @@ export default class LoanService {
   private loanCounter = 0;
 
   async borrowBook(bookId: number, memberId: number) {
-    const isBookExist: Book = await this.BookRepo.bookExistById(bookId);
-    const isMemberEixst: Member =
+    const isBookExist: boolean = await this.BookRepo.bookExistById(bookId);
+    const isMemberEixst: boolean =
       await this.MemberRepo.memberExistById(memberId);
 
     if (!(isMemberEixst && isBookExist)) return "Member or Book doesn't exist!";
 
-    const book: Book = await this.BookRepo.findBookById(bookId);
-    const member: Member = await this.MemberRepo.findMemberById(memberId);
+    const book = await this.BookRepo.findBookById(bookId);
+    const member = await this.MemberRepo.findMemberById(memberId);
 
     if (!member.isActive) return "Member isn't active!";
     if (!book.isAvailable) return "Book doesn't available";
