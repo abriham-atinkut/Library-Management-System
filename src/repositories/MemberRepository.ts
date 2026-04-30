@@ -34,14 +34,25 @@ export default class MemberRepository {
   }
 
   findMemberById(id: number) {
-    const memberById = this.getMembers().then((data) =>
-      data.find((member: any) => member.id === id),
+    const memberById = this.getMembers().then((data: Member[]) =>
+      data.find((member) => member.id === id),
     );
     return memberById;
   }
+  
   async memberExistById(id: number) {
-    return  await this.getMembers().then((data) =>
-      data.some((member: any) => member.id === id),
+    return await this.getMembers().then((data: Member[]) =>
+      data.some((member) => member.id === id),
     );
+  }
+
+  async searchMember(term: string) {
+    const members = await this.getMembers().then((data: Member[]) =>
+      data.filter((member) => member.name.toLowerCase().includes(term.toLowerCase())),
+    );
+    if (members.length === 0) {
+      return "Member didn't exist. Search using another key word.";
+    }
+    return members;
   }
 }

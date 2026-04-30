@@ -23,4 +23,8 @@ export default class MemberService {
   async getById(id: number) {
     return await this.memberRepo.findMemberById(id);
   }
+
+  async search(term: string) {
+    return await this.memberRepo.searchMember(term);
+  }
 }
