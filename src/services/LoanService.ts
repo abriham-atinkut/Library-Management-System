@@ -21,8 +21,8 @@ export default class LoanService {
 
     if (!(isMemberEixst && isBookExist)) return "Member or Book doesn't exist!";
 
-    const book = await this.BookRepo.findBookById(bookId);
-    const member = await this.MemberRepo.findMemberById(memberId);
+    const book = await this.BookRepo.findBookById(bookId) as Book;
+    const member = await this.MemberRepo.findMemberById(memberId) as Member;
 
     if (!member.isActive) return "Member isn't active!";
     if (!book.isAvailable) return "Book doesn't available";

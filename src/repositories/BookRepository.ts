@@ -1,7 +1,7 @@
 import { readFile, writeFile } from "node:fs/promises";
-import type { Book } from "../models/Book.js";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import type { Book } from "../models/Book.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -39,8 +39,8 @@ export default class BookRepository {
     const bookById = this.loadData().then((data) =>
       data !== undefined ? data.find((book: Book) => book.id === id) : {},
     );
-    if (Object.keys(bookById).length === 0 || undefined) {
-      throw new Error("Book not found!");
+    if (!bookById) {
+      return "Book not found!";
     }
     return bookById;
   }

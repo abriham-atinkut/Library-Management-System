@@ -56,6 +56,9 @@ console.log(allMembers);
 const oneMember = await members.getById(62);
 console.log(oneMember);
 
+// * Get member by search By name
+const searchResult = await members.search("ab")
+console.log(searchResult);
 /**
  * Loan Service and Repository in Action
  */
@@ -64,12 +67,12 @@ const loanRepo = new LoanRepository();
 const loanServices = new LoanService(loanRepo, bookRepo, memberRepo);
 
 // * Borrow Book: Parameters (bookId, memberId)
-// This will change isAvailable to "false" in books.json file
+// * This will change isAvailable to "false" in books.json file
 const loan = await loanServices.borrowBook(2, 57);
 console.log(loan);
 
 // * Return Book: using loan Id
-// This will also change isAvailable to "true" in books.json file
+// * This will also change isAvailable to "true" in books.json file
 const returnedLoan = await loanServices.returnBook(1);
 console.log(returnedLoan);
 

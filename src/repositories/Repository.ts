@@ -42,8 +42,7 @@ export default class Repository<T extends { id: number }> {
       data !== undefined ? data.find((value: T) => value.id === id) : {},
     );
     if (dataById === undefined || Object.keys(dataById).length === 0) {
-      console.log(dataById)
-      return "Book not found!";
+      return "Data not found!";
     }
     return dataById;
   }

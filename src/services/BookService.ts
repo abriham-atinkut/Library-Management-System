@@ -1,6 +1,5 @@
 import BookRepository from "../repositories/BookRepository.js";
 import type { Book } from "../models/Book.js";
-
 type CreateBookInput = Omit<Book, "id" | "isAvailable" | "createAt">;
 
 export default class BookService {
@@ -25,7 +24,3 @@ export default class BookService {
   }
 }
 
-// let bookRepo = new BookRepository();
-// let book = new BookService(bookRepo);
-// const isExist = await book.bookExist(2);
-// console.log(isExist);
